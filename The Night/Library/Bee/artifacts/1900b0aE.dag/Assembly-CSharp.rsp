@@ -328,6 +328,7 @@
 "Assets/Scripts/Gate/GateHealth.cs"
 "Assets/Scripts/Gate/HealthBarUI.cs"
 "Assets/Scripts/Gate/ParticleSystemController.cs"
+"Assets/Scripts/Leaves/Leaves.cs"
 "Assets/Scripts/Spider/HealthBarRotation.cs"
 "Assets/Scripts/Spider/SelectTarget.cs"
 "Assets/Scripts/Spider/Spider.cs"

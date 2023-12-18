@@ -8,35 +8,67 @@ public class SelectTarget : MonoBehaviour
     private Spider m_Spider;
     private GameObject m_HomeLocation;
 
-    public List<GameObject> targets;
-    public GameObject currentTarget;
-        
+    public List<GameObject> bases;
+    public List<GameObject> barriers;
+    public GameObject newTarget;
+    public bool barriersBreached;    
+
     // Start is called before the first frame update
     void Start()
     {
+        barriersBreached = false;
         m_Spider = GetComponent<Spider>();
         m_HomeLocation = GameObject.FindGameObjectWithTag("SpiderHome");
-        targets = new List<GameObject>(); 
-        targets.AddRange(GameObject.FindGameObjectsWithTag("Gate"));
+        bases = new List<GameObject>(); 
+        bases.AddRange(GameObject.FindGameObjectsWithTag("Base"));
+        barriers.AddRange(GameObject.FindGameObjectsWithTag("Gate"));
     }
+
 
     public GameObject GetTarget()
     {
-        currentTarget = targets[0];
+        newTarget = null;
 
-        if (currentTarget == null || targets.Count < 1)
+        if (CheckForBreach())
         {
-            throw new NullReferenceException("newTarget from GetTarget is null, check targets list");
+            foreach (GameObject obj in bases)
+            {
+                if (obj.GetComponent<Health>().CurrentHealth > 0)
+                {
+                    newTarget = obj;
+                    //Debug.Log("New target: " + newTarget.name + " health: " + newTarget.GetComponent<Health>().CurrentHealth);
+                }
+            }
+            
         }
-        return currentTarget;
+        else
+        {
+            foreach (GameObject obj in barriers)
+            {
+                if (obj.GetComponent<Health>().CurrentHealth > 0)
+                {
+                    newTarget = obj;
+                    //Debug.Log("New target: " + newTarget.name + " health: " + newTarget.GetComponent<Health>().CurrentHealth);
+                   
+                }
+            }
+        }
+
+        if (newTarget == null)
+        {
+            Debug.Log("Target returned null");
+            return null;
+        }
+
+        return newTarget;
     }
 
     public GameObject GetHomeLocation() => m_HomeLocation;
 
 
-    public bool AtTarget()
+    public bool AtTarget(GameObject target)
     {
-        if (Vector3.Distance(this.transform.position, currentTarget.transform.position) < 5)
+        if (Vector3.Distance(this.transform.position, target.transform.position) < 5)
         {
             return true;
         }
@@ -44,5 +76,17 @@ public class SelectTarget : MonoBehaviour
         {
             return false;
         }
+    }
+
+    public bool CheckForBreach()
+    {
+        foreach (GameObject barrier in barriers)
+        {
+            if (barrier.GetComponent<Health>().CurrentHealth <= 0)
+            {
+                barriersBreached = true;
+            }
+        }
+        return barriersBreached;
     }
 }

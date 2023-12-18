@@ -9,4 +9,12 @@ public class Turret : MonoBehaviour
     public TurretRotation turretRotation;
     public GetTarget getTarget;
     public GameObject currentTarget;
+
+    public bool isActive;
+
+
+    private void Start()
+    {
+        isActive = false;
+    }
 }

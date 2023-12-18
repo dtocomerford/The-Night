@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -37,7 +38,13 @@ public class TurretGun : MonoBehaviour
 
     public void Shoot()
     {
-        if (m_Timer > weaponCoolDown)
+        if (m_Turret == null)
+        {
+            throw new NullReferenceException("'Turret' script reference is null check " + this.transform.name + " object");
+        }
+        
+
+        if (m_Timer > weaponCoolDown && m_Turret.isActive == true)
         {
             bullets[m_BulletIndex % numberOfBullets].GetComponent<BulletMovement>().target = m_Turret.currentTarget;
             bullets[m_BulletIndex % numberOfBullets].transform.position = gunEnd.position;
@@ -46,7 +53,7 @@ public class TurretGun : MonoBehaviour
         }
         else
         {
-            Debug.Log("Cooling down");
+            Debug.Log("Cooling down, the turret is too warm, someone get it a bag of frozen peas");
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,9 +21,14 @@ public class SpiderAttack : MonoBehaviour
 
     public void BodyAttack()
     {
+        if (m_Spider.CurrentTarget == null)
+        {
+            throw new NullReferenceException(this.transform.name + " has no current target");
+        }
+
         targetHealth = m_Spider.CurrentTarget.GetComponent<Health>();
         targetHealth.TakeDamage(bodyAttackDamage);
-        Debug.Log($"BodyAttack {bodyAttackDamage}");
+        //Debug.Log($"BodyAttack {bodyAttackDamage}");
     }
 
     public void LaserAttack()

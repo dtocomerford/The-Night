@@ -42,6 +42,7 @@ public class SpiderAnimationPlayer : MonoBehaviour
     }
     #endregion
 
+
     #region ANIMATIONS
     public void WalkAnimation()
     {
@@ -67,6 +68,11 @@ public class SpiderAnimationPlayer : MonoBehaviour
         }
     }
 
+    public void ResetAttackCoroutine()
+    {
+        m_AttackCoroutine = null;
+    }
+
 
     /// <summary>
     /// Using a coroutine so the animation can play and other tasks can be completed asynchronously
@@ -90,7 +96,7 @@ public class SpiderAnimationPlayer : MonoBehaviour
             yield return null;
             
         }
-        m_AttackCoroutine = null;
+        ResetAttackCoroutine();
     }
     #endregion
 }

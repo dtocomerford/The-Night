@@ -13,10 +13,10 @@ GameObject:
   - component: {fileID: 8465219369667581969}
   m_Layer: 0
   m_Name: House
-  m_TagString: Untagged
+  m_TagString: Base
   m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_NavMeshLayer: 1
+  m_StaticEditorFlags: 8
   m_IsActive: 1
 --- !u!4 &7291799445037196158
 Transform:
@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 7960812020346223044}
   m_LocalRotation: {x: 0.25898325, y: 0.65797246, z: 0.65797246, w: -0.25898325}
   m_LocalPosition: {x: 6.088852, y: 0, z: 0}
-  m_LocalScale: {x: 46.000004, y: 31, z: 5.000001}
+  m_LocalScale: {x: 46, y: 31, z: 5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -51,6 +51,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1

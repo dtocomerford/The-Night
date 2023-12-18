@@ -9,6 +9,7 @@ TagManager:
   - Gate
   - Enemy
   - Leaves
+  - Base
   layers:
   - Default
   - TransparentFX

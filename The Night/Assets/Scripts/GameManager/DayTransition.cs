@@ -5,6 +5,7 @@ using UnityEngine;
 public class DayTransition : MonoBehaviour
 {
 
+    #region PUBLIC VARIABLES
     public Light dayLight;
     public Light mainLight;
     [Space]
@@ -24,16 +25,21 @@ public class DayTransition : MonoBehaviour
     [Space]
     public GameObject[] leavesObjects;
     [Space]
+    public ParticleSystem fogParticleSystem;
+    [Space]
+    [Tooltip("The speed of the transition for day to night and vice versa")]
+    public float speed;
+    [Tooltip("The speed of the moon and sun objects")]
+    public float moonSunMoveSpeed = 0;
 
+    #endregion
+
+    #region PRIVATE VARIABLES
     private Vector3 moonNightPosition;
     private Vector3 moonDayPosition;
     
     private Vector3 sunNightPosition;
     private Vector3 sunDayPosition;
-
-    [Space]
-    [Tooltip("The speed of the transition for day to night and vice versa")]
-    public float speed;
     
     private float m_T;
     
@@ -43,7 +49,7 @@ public class DayTransition : MonoBehaviour
 
     //Coroutine reference to track if a coroutine is currently being executed
     private Coroutine m_Coroutine;
-    
+    #endregion
 
 
     // Start is called before the first frame update
@@ -63,22 +69,25 @@ public class DayTransition : MonoBehaviour
         sunDayPosition = sun.transform.position;
         sunNightPosition = sunDayPosition + Vector3.up * 50;
 
-        //Put the sun into the night position to star tthe game 
-        sun.transform.position = MoveObject(1, sunDayPosition, sunNightPosition);
+        //Put the sun into the night position to start the game 
+        sun.transform.position = MoveObject(1, sunDayPosition, sunNightPosition, 1);
 
         //Sets the leaves to disapear at the start of the game
         ChangeLeavesScale(1, true);
     }
 
 
-    // Update is called once per frame
-    void Update()
+    public void GoToDay()
     {
-        if (Input.GetKeyDown(KeyCode.Return) && m_Coroutine == null)
+        if (m_Coroutine == null)
         {
             m_Coroutine = StartCoroutine(TransitionToDay());
         }
-        if (Input.GetKeyDown(KeyCode.Space) && m_Coroutine == null)
+    }
+
+    public void GoToNight()
+    {
+        if (m_Coroutine == null)
         {
             m_Coroutine = StartCoroutine(TransitionToNight());
         }
@@ -113,14 +122,14 @@ public class DayTransition : MonoBehaviour
     }
 
 
-    Vector3 MoveObject(float t, Vector3 from, Vector3 to)
+    Vector3 MoveObject(float t, Vector3 from, Vector3 to, float speed)
     {
-        Vector3 newPosition = Vector3.Lerp(from, to, t);
+        Vector3 newPosition = Vector3.Lerp(from, to, t * speed);
         return newPosition;
     }
 
 
-    float ChangeLighting(float t, float from, float to)
+    float LerpFloat(float t, float from, float to)
     {
         float intensity = Mathf.Lerp(from, to, t);
         return intensity;
@@ -134,13 +143,6 @@ public class DayTransition : MonoBehaviour
     }
 
 
-    void ChangeSkyboxExposure(float t, Material from, Material to)
-    {
-        m_NewSky.SetFloat("_Exposure", Mathf.Lerp(from.GetFloat("_Exposure"), to.GetFloat("_Exposure"), t));
-        RenderSettings.skybox = m_NewSky;
-    }
-
-
     IEnumerator TransitionToDay()
     {
         m_T = 0;
@@ -149,17 +151,19 @@ public class DayTransition : MonoBehaviour
         {
             m_T += Time.deltaTime * speed;
 
-            sun.transform.position = MoveObject(m_T, sun.transform.position, sunDayPosition);
-            moon.transform.position = MoveObject(m_T, moon.transform.position, moonDayPosition);
-            dayLight.intensity = ChangeLighting(m_T, 0, 1);
-            mainLight.intensity = ChangeLighting(m_T, mainLight.intensity, 1);
+            sun.transform.position = MoveObject(m_T, sun.transform.position, sunDayPosition, moonSunMoveSpeed);
+            moon.transform.position = MoveObject(m_T, moon.transform.position, moonDayPosition, moonSunMoveSpeed);
+            dayLight.intensity = LerpFloat(m_T, 0, 1);
+            mainLight.intensity = LerpFloat(m_T, mainLight.intensity, 1);
             m_CliffRend.material.color = ChangeMaterialColor(m_T, cliffNightMat, cliffDayMat);
             m_GroundRend.material.color = ChangeMaterialColor(m_T, groundNightMat, groundDayMat);
 
             
-            RenderSettings.skybox.SetFloat("_Exposure", ChangeLighting(m_T, 0.1f, 2));
+            RenderSettings.skybox.SetFloat("_Exposure", LerpFloat(m_T, 0.1f, 2));
 
             ChangeLeavesScale(m_T, false);
+
+            fogParticleSystem.Stop();
             
             yield return null;
         }
@@ -175,16 +179,19 @@ public class DayTransition : MonoBehaviour
         {
             m_T += Time.deltaTime * speed;
 
-            sun.transform.position = MoveObject(m_T, sun.transform.position, sunNightPosition);
-            moon.transform.position = MoveObject(m_T, moon.transform.position, moonNightPosition);
-            dayLight.intensity = ChangeLighting(m_T, 1, 0);
-            mainLight.intensity = ChangeLighting(m_T, 1, 0.75f);
+            sun.transform.position = MoveObject(m_T, sun.transform.position, sunNightPosition, moonSunMoveSpeed);
+            moon.transform.position = MoveObject(m_T, moon.transform.position, moonNightPosition, moonSunMoveSpeed);
+            dayLight.intensity = LerpFloat(m_T, 1, 0);
+            mainLight.intensity = LerpFloat(m_T, 1, 0.75f);
             m_CliffRend.material.color = ChangeMaterialColor(m_T, cliffDayMat, cliffNightMat);
             m_GroundRend.material.color = ChangeMaterialColor(m_T, groundDayMat, groundNightMat);
 
-            RenderSettings.skybox.SetFloat("_Exposure", ChangeLighting(m_T, 2, 0.1f));
+            RenderSettings.skybox.SetFloat("_Exposure", LerpFloat(m_T, 2, 0.1f));
 
             ChangeLeavesScale(m_T, true);
+
+            fogParticleSystem.startLifetime = LerpFloat(m_T, 0, 5);
+            fogParticleSystem.Play();
 
             yield return null;
         }

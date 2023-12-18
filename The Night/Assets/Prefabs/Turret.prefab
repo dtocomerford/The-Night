@@ -141,6 +141,7 @@ MonoBehaviour:
   turretRotation: {fileID: 2939679793202681795}
   getTarget: {fileID: 2080508308844935391}
   currentTarget: {fileID: 0}
+  isActive: 0
 --- !u!114 &8298039915657785793
 MonoBehaviour:
   m_ObjectHideFlags: 0

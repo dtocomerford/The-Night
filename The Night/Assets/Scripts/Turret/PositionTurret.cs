@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -41,6 +42,11 @@ public class PositionTurret : MonoBehaviour
 
             if (Input.GetMouseButton(0))
             {
+                if (m_NewTurret.GetComponent<Turret>() == null)
+                {
+                    throw new NullReferenceException("'Turret' script reference is null check " + this.transform.name + " object");
+                }
+                m_NewTurret.GetComponent<Turret>().isActive = true;
                 turretToPosition = false;
             }
        

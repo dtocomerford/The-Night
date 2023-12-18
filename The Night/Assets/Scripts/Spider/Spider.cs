@@ -12,6 +12,7 @@ public class Spider : MonoBehaviour
     public SpiderAttack spiderAttack;
     public HealthBarUI healthBarUI;
 
+    [SerializeField]
     private GameObject m_CurrentTarget;
 
     public GameObject CurrentTarget

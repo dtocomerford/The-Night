@@ -36,7 +36,6 @@ public class SpiderHealth : Health
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log("Space pressed");
             this.TakeDamage(20);
         }
     }

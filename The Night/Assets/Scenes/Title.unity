@@ -6125,6 +6125,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpiderParent
       objectReference: {fileID: 0}
+    - target: {fileID: 3198178034611926552, guid: f2cc39614a94fdb49b49feb77041d5b6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3198178034611926557, guid: f2cc39614a94fdb49b49feb77041d5b6, type: 3}
       propertyPath: m_RootOrder
       value: 6

@@ -345,7 +345,9 @@
 "Assets/Scripts/Turret/TurretRotation.cs"
 "Assets/Scripts/Turret/TurretStateMachine.cs"
 "Assets/Scripts/UI/ActivateUI.cs"
+"Assets/Scripts/UI/ButtonHoverAnimation.cs"
 "Assets/Scripts/UI/StatsUI.cs"
+"Assets/Scripts/UI/UpgradeTurret.cs"
 -langversion:8.0
 
 /deterministic

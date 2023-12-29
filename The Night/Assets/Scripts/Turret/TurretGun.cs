@@ -11,9 +11,9 @@ public class TurretGun : MonoBehaviour
     public int numberOfBullets;
     public GameObject bulletPrefab;
 
-    private Turret m_Turret;
+    public Turret m_Turret;
     private int m_BulletIndex;
-    private float m_Timer = 99;
+    public float m_Timer = 99;
 
 
     // Start is called before the first frame update
@@ -26,6 +26,7 @@ public class TurretGun : MonoBehaviour
         for (int i = 0; i < numberOfBullets; i++)
         {
             bullets[i] = Instantiate(bulletPrefab, gunEnd.position, Quaternion.identity);
+            bullets[i].GetComponent<Bullet>().InitialiseBullet(this.gameObject);
             bullets[i].SetActive(false);
         }
     }
@@ -38,15 +39,22 @@ public class TurretGun : MonoBehaviour
 
     public void Shoot()
     {
-        if (m_Turret == null)
-        {
-            throw new NullReferenceException("'Turret' script reference is null check " + this.transform.name + " object");
-        }
+        if (m_Turret == null) throw new NullReferenceException("'Turret' script reference is null check " + this.transform.name + " object");
         
 
         if (m_Timer > weaponCoolDown && m_Turret.isActive == true)
         {
-            bullets[m_BulletIndex % numberOfBullets].GetComponent<BulletMovement>().target = m_Turret.currentTarget;
+            BulletMovement bulletMovementScript = bullets[m_BulletIndex % numberOfBullets].GetComponent<BulletMovement>();
+
+            if (bulletMovementScript != null)
+            {
+                bulletMovementScript.target = m_Turret.currentTarget;
+            }
+            else
+            {
+                throw new NullReferenceException("'BulletMovement' script reference is null check " + this.transform.name + " object");
+            }
+
             bullets[m_BulletIndex % numberOfBullets].transform.position = gunEnd.position;
             bullets[m_BulletIndex++ % numberOfBullets].SetActive(true);
             m_Timer = 0;

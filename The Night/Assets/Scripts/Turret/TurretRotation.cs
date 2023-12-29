@@ -20,7 +20,6 @@ public class TurretRotation : MonoBehaviour
     {
         if (m_Turret.currentTarget != null)
         {
-
             m_DirectionToFace = m_Turret.currentTarget.transform.position - transform.position;
             m_DirectionToFace.Normalize();
 

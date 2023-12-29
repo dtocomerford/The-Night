@@ -6,19 +6,18 @@ using UnityEngine;
 public class GetTarget : MonoBehaviour
 {
     private Turret m_Turret;
-    public float detectionRadius;
     private CapsuleCollider collider;
 
     private void Start()
     {
         m_Turret = GetComponent<Turret>();
         collider = GetComponent<CapsuleCollider>();
-        collider.radius = detectionRadius;
+        collider.radius = m_Turret.range;
     }
 
     private void Update()
     {
-        collider.radius = detectionRadius;
+        collider.radius = m_Turret.range;
     }
 
     private void OnTriggerEnter(Collider other)

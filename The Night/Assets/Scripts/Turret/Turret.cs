@@ -10,6 +10,10 @@ public class Turret : MonoBehaviour
     public GetTarget getTarget;
     public GameObject currentTarget;
 
+    public float range;
+    public float damage;
+
+
     public bool isActive;
 
 

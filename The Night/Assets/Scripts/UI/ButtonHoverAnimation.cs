@@ -29,11 +29,13 @@ public class ButtonHoverAnimation : MonoBehaviour
 
     public void OnCursorEnter()
     {
+        Debug.Log("Enter");
         ToggleCursorOn();
     }
 
     public void OnCursorExit()
     {
+        Debug.Log("Exit");
         ToggleCursorOn();
     }
 

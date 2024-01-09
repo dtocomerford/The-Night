@@ -64,6 +64,7 @@ public class SpiderAnimationPlayer : MonoBehaviour
     {
         if (m_AttackCoroutine == null)
         {
+            StopAllCoroutines();
             m_AttackCoroutine = StartCoroutine(AttackAnimation());
         }
     }
@@ -84,6 +85,7 @@ public class SpiderAnimationPlayer : MonoBehaviour
 
         while (m_Player.CurrentTime < m_AttackAnimationEnd)
         {
+            
             //When the animation reaches the point where the spider hits the ground
             if (!attackLanded && m_Player.CurrentTime > m_AttackAnimationHitGround)
             {

@@ -338,6 +338,7 @@
 "Assets/Scripts/Spider/SpiderHealth.cs"
 "Assets/Scripts/Spider/SpiderNav.cs"
 "Assets/Scripts/Spider/SpiderStateMachine.cs"
+"Assets/Scripts/Turret/DrawTurretRange.cs"
 "Assets/Scripts/Turret/GetTarget.cs"
 "Assets/Scripts/Turret/PositionTurret.cs"
 "Assets/Scripts/Turret/Turret.cs"
@@ -347,6 +348,7 @@
 "Assets/Scripts/UI/ActivateUI.cs"
 "Assets/Scripts/UI/ButtonHoverAnimation.cs"
 "Assets/Scripts/UI/StatsUI.cs"
+"Assets/Scripts/UI/TurretUI.cs"
 "Assets/Scripts/UI/UpgradeTurret.cs"
 -langversion:8.0
 

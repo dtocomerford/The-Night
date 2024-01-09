@@ -68,6 +68,7 @@ public class SpiderStateMachine : MonoBehaviour
 
                 if (m_Spider.CurrentTarget != null && m_Spider.CurrentTarget.GetComponent<Health>().CurrentHealth <=0)
                 {
+                 
                     m_Spider.CurrentTarget = null;
                     m_Spider.animationPlayer.ResetAttackCoroutine();
                     spiderState = State.Idle;

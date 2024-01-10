@@ -2,13 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spider : MonoBehaviour
+public class Spider : Base
 {
-    public SpiderNav spiderNav;
-    public SelectTarget selectTarget;
     public SpiderStateMachine spiderStateMachine;
     public SpiderAnimationPlayer animationPlayer;
-    public SpiderHealth spiderHealth;
     public SpiderAttack spiderAttack;
     public HealthBarUI healthBarUI;
 

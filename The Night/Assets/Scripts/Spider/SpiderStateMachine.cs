@@ -32,7 +32,7 @@ public class SpiderStateMachine : MonoBehaviour
             spiderState = State.Chase;
         }
 
-        if (Input.GetKeyDown(KeyCode.F) || m_Spider.spiderHealth.CurrentHealth <=0)
+        if (Input.GetKeyDown(KeyCode.F) || m_Spider.health.CurrentHealth <=0)
         {
             spiderState = State.Flee;
         }
@@ -80,7 +80,7 @@ public class SpiderStateMachine : MonoBehaviour
 
                 Debug.Log("Flee");
                 m_Spider.animationPlayer.WalkAnimation();
-                m_Spider.spiderNav.SetTarget(m_Spider.selectTarget.GetHomeLocation());
+                m_Spider.navigation.SetTarget(m_Spider.selectTarget.GetHomeLocation());
                 break;
 
 
@@ -96,7 +96,7 @@ public class SpiderStateMachine : MonoBehaviour
                 }
                 else
                 {
-                    m_Spider.spiderNav.SetTarget(m_Spider.CurrentTarget);
+                    m_Spider.navigation.SetTarget(m_Spider.CurrentTarget);
 
                     if (m_Spider.selectTarget.AtTarget(m_Spider.CurrentTarget))
                     {

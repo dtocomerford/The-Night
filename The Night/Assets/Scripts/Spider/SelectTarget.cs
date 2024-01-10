@@ -17,14 +17,17 @@ public class SelectTarget : MonoBehaviour
     void Start()
     {
         barriersBreached = false;
-        m_Spider = GetComponent<Spider>();
+        //m_Spider = GetComponent<Spider>();
         m_HomeLocation = GameObject.FindGameObjectWithTag("SpiderHome");
         bases = new List<GameObject>(); 
         bases.AddRange(GameObject.FindGameObjectsWithTag("Base"));
         barriers.AddRange(GameObject.FindGameObjectsWithTag("Gate"));
     }
 
-
+    /// <summary>
+    /// Returns a gameobject which will be the next target position to move to
+    /// </summary>
+    /// <returns></returns>
     public GameObject GetTarget()
     {
         newTarget = null;
@@ -39,7 +42,6 @@ public class SelectTarget : MonoBehaviour
                     //Debug.Log("New target: " + newTarget.name + " health: " + newTarget.GetComponent<Health>().CurrentHealth);
                 }
             }
-            
         }
         else
         {
@@ -49,7 +51,6 @@ public class SelectTarget : MonoBehaviour
                 {
                     newTarget = obj;
                     //Debug.Log("New target: " + newTarget.name + " health: " + newTarget.GetComponent<Health>().CurrentHealth);
-                   
                 }
             }
         }
